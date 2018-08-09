@@ -6,10 +6,10 @@ module.exports = (function () {
     };
   }
 
-  const checkContent = (content) => {
+  const checkContentMoo = (content) => {
     const check = content.toLowerCase();
-    if ((check.includes('бизон') && check.includes('bison'))
-    || (check.includes('муу') && check.includes('moo'))) {
+    if ((check.includes('бизон') || (check.includes('муу')))
+    && (check.includes('bison') || check.includes('moo'))) {
       return getState(true, 'mixed');
     }
     if (check.includes('bison') || check.includes('moo')) {
@@ -24,7 +24,7 @@ module.exports = (function () {
   const getMoo = (m, o, count = 18) => m + (o + o).repeat(Math.floor(Math.random() * count + 1));
 
   return {
-    checkContent,
+    checkContentMoo,
     getMoo,
   };
 }());

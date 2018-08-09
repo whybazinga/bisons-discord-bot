@@ -11,7 +11,7 @@ bot.on('ready', () => {
 
 bot.on('message', (msg) => {
   if (msg.author.username.toLowerCase() !== 'bisons bot') {
-    const msgInfo = util.checkContent(msg.content);
+    const msgInfo = util.checkContentMoo(msg.content);
     if (msgInfo.state) {
       switch (msgInfo.lang) {
         case 'ru':
