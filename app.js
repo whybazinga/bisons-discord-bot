@@ -3,7 +3,12 @@ const Discord = require('discord.js');
 const { token } = require('./top-secret');
 const util = require('./util');
 
+const BisonsFactoryClass = require('./bisons-factory');
+
+const bisonsFactory = new BisonsFactoryClass();
 const bot = new Discord.Client();
+
+const activeBisons = {};
 
 bot.on('ready', () => {
   console.log('Bot is up');
@@ -11,25 +16,11 @@ bot.on('ready', () => {
 
 bot.on('message', (msg) => {
   if (msg.author.username.toLowerCase() !== 'bisons bot') {
-    const msgInfo = util.checkContentMoo(msg.content);
-    if (msgInfo.state) {
-      switch (msgInfo.lang) {
-        case 'ru':
-          msg.channel.send(util.getMoo('м', 'у'));
-          break;
-
-        case 'en':
-          msg.channel.send(util.getMoo('m', 'o'));
-          break;
-
-        case 'mixed':
-          msg.channel.send(util.getMoo('m', 'o', 5) + ' cyka blyat');
-          break;
-
-        default:
-          msg.channel.send('moo wat?');
-          break;
-      }
+    const locale = util.checkLocale(msg.content);
+    if (activeBisons.hasOwnProperty(locale)) {
+      msg.channel.send(activeBisons[locale].sound);
+    } else {
+      activeBisons[locale] = bisonsFactory.createBison(locale);
     }
   }
 });
