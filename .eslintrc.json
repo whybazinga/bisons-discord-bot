@@ -24,6 +24,7 @@
         "eqeqeq": ["error", "always", {"null": "ignore"}],
         "prefer-promise-reject-errors":"warn",
         "no-use-before-define":"warn",
-        "prefer-destructuring":"warn"
+        "prefer-destructuring":"warn",
+        "max-len":"warn"
     }
 }

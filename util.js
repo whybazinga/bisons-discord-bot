@@ -16,4 +16,12 @@ utilModule.checkLocale = (content) => {
   return locale;
 };
 
+// utilModule.makeNotification = match => ('!' + match.teamAName + '-' + match.teamBName); // TODO
+
+utilModule.beautifyHours = (date) => {
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  return (hours < 10 ? '0' + hours : hours) + ':' + (minutes < 10 ? '0' + minutes : minutes);
+};
+
 module.exports = utilModule;

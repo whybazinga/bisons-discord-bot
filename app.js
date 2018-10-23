@@ -10,6 +10,9 @@ const bot = new Discord.Client();
 
 const activeBisons = {};
 
+
+const jdNotifier = require('./jd-notifier');
+
 bot.on('ready', () => {
   console.log('Bot is up');
 });
@@ -17,11 +20,30 @@ bot.on('ready', () => {
 bot.on('message', (msg) => {
   if (msg.author.username.toLowerCase() !== 'bisons bot') {
     const locale = util.checkLocale(msg.content);
-    if (activeBisons.hasOwnProperty(locale)) {
-      msg.channel.send(activeBisons[locale].sound);
-    } else {
-      activeBisons[locale] = bisonsFactory.createBison(locale);
-    }
+    if (locale !== 'init') {
+      if (activeBisons.hasOwnProperty(locale)) {
+        msg.channel.send(activeBisons[locale].sound);
+      } else {
+        activeBisons[locale] = bisonsFactory.createBison(locale);
+        msg.channel.send(activeBisons[locale].sound);
+      }
+    } // else {
+    // switch (msg.content) {
+    //   case '!start':
+    //     jdNotifier.start(
+    //       msg.channel.send,
+    //       'Dark Bisons',
+    //       'https://www.joindota.com/en/leagues/europe/971-season-14/group/90-groupstage/887-europe-3-1',
+    //       1000,
+    //     );
+    //     break;
+    //   case '!stop':
+    //     jdNotifier.stop();
+    //     break;
+    //   default:
+    //     break;
+    // }
+    // }
   }
 });
 
